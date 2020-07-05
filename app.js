@@ -4,7 +4,7 @@ const app = express()
 const server = http.createServer(app)
 require('express-async-errors')
 
-require('./src/startup/middlewares')(app)
+require('./src/middlewares/middlewares')(app)
 const config = require('./src/config/constants')
 const database = require('./src/startup/database')
 const errorMiddleware = require('./src/middlewares/errorHandler')
