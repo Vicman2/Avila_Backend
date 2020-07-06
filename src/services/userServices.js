@@ -38,20 +38,21 @@ class UserServices{
                             .skip(numberToSkip)
                             .limit(numberOfPersons)
                             .sort([["createdAt", -1]])
+                            .select("_id name email role")
         let numberOfAll = await userModel.count()
-        const data = {
+        const dataToSend = {
             requestedUsers:wanted, 
             totalUsers: numberOfAll? numberOfAll : null
         }
         if(!numberOfAll|| numberOfAll == 0) throw new CustomError("No user in the platform")
-        const dataToSend =  {success: true, message: "Users fetched successfully", data: data}
         return dataToSend
     }
     async deleteUser(userId){
         const userToBeDeleted = await userModel.findById(userId)
         if(!userToBeDeleted)  throw new CustomError("User do not exist", 400)
         const deletedUser = await userModel.findByIdAndDelete(userId);
-        return {success: true, message: "User have been deleted successfully", userData: deletedUser}
+        const dataToSend =  {_id: deletedUser._id, email: deletedUser.email, role: deletedUser.role}
+        return dataToSend    
     }
     async editUser(userId, dataToInsert){
         const existing = await userModel.findOne({email: dataToInsert.email, _id: { $ne:userId } })
@@ -67,7 +68,7 @@ class UserServices{
         userToEdit.email = dataToInsert.email;
         userToEdit.role = dataToInsert.role;
         const editedUser = await userToEdit.save();
-        const dataToSend =  {success: true, message: "User have been edited successfully", data: editedUser}
+        const dataToSend =  {_id: editedUser._id, email: editedUser.email, role: editedUser.role}
         return dataToSend
     }
 }
