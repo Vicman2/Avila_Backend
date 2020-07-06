@@ -1,4 +1,5 @@
 const http = require('http')
+const path = require('path')
 const express = require('express')
 const app = express()
 const server = http.createServer(app)
@@ -16,7 +17,7 @@ app.use('/api', apiRoutes)
 
 //Initial home route
 app.use('/', (req, res)=> {
-    res.status(200).sendFile(express.static('./public/index.html'))
+    res.status(200).sendFile(path.join(__dirname, './public', 'index.html'))
 })
 
 // Error Middleware

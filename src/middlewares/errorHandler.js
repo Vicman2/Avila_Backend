@@ -6,11 +6,11 @@ module.exports = function(app){
         throw new CustomError("Invalid request", 400)
     })
     app.use((error, req, res, next) => {
-       switch (error) {
+       switch (true) {
             case error instanceof CustomError :
                 res.status(error.status).json(response(false, error.message, null))
                 break;
-            case error.name == 'SyntacError' :
+            case error.name == 'SyntaxError' :
                 res.status(400).json(response(false, error.message, null))
                 break;
             case error.name == 'JsonWebTokenError' :
