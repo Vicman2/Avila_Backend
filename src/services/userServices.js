@@ -15,7 +15,7 @@ class UserServices{
         const saved = await toSave.save()
         const token = await util.generateToken({id: saved._id, role: saved.role})
         const dataToSend = {
-            _id: daved._id,
+            _id: saved._id,
             token: token,
             name:saved.name,
             email: saved.email,
