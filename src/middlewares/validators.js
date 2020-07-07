@@ -6,6 +6,7 @@ exports.validateSignUp = async(req, res, next) => {
     const Schema = {
         name: joi.string().min(3).required(),
         email:joi.string().email().required(),
+        phone: joi.string().min(10).required(),
         password:joi.string().required()
     }
     const result = joi.validate(req.body, Schema)
@@ -24,7 +25,6 @@ exports.validateLogin  = async(req, res, next)=>{
     next()
 }
 exports.validateGetUsers= async(req, res, next)=> {
-    console.log(req.query)
     const Schema = {
         pageNo : joi.number().required(),
         noOfUsers: joi.number().required()
@@ -48,6 +48,7 @@ exports.validateEdittedUser = async(req, res, next) => {
         name: joi.string().min(3).max(30).required(),
         email:joi.string().email().required(),
         role: joi.string().allow(["user", "admin"]).required(),
+        phone: joi.string().min(10).required(),
         password: joi.optional()
     }
     const result = joi.validate(req.body, Schema)

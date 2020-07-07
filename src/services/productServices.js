@@ -18,7 +18,7 @@ class Product{
     }
     async getOne(id){
         const product = await productModel.findById(id);
-        if(!product) throw new CustomError("Product not found");
+        if(!product) throw new CustomError("Product not found", 400);
         return product
     }
     async getMany(pageNumber, numberOfProducts){

@@ -13,6 +13,10 @@ const UserModel = new Schema({
         unique: true,
         required:true
     }, 
+    phone: {
+        type: String, 
+        required: true,
+    }, 
     password:{
         type: String,
         required: true
@@ -21,7 +25,25 @@ const UserModel = new Schema({
         type: String,
         enum: ["user", "admin"],
         default: "user"
-    }
+    },
+    address: {
+        type: String, 
+        required: false,
+        default: ""
+    },
+    cart: [
+        {
+            product:  {
+                type: Schema.Types.ObjectId, 
+                ref:"product"
+               },
+            quantity: {
+                type: Number,
+                required: true,
+                default: 1
+            }
+        }
+    ]
 }, {timestamps:true})
 
 module.exports = mongoose.model("User", UserModel)
