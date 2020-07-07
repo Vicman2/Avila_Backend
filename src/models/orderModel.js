@@ -8,24 +8,24 @@ const orderModel = new Schema({
         type: Schema.Types.ObjectId,
         ref:'User'
     },
-    userOrders:[
+    orders:[
         {
             product:{
                 type:Schema.Types.ObjectId,
                 required: true,
                 ref:'product'
-            }, 
-            status:{
-                type:String,
-                enum:['processing', 'completed'],
-                default:'processing'
-            }, 
-            orderDate: {
-                type:Date,
-                default: Date.now
-            }
+            },
         }
-    ]
+    ],
+    status:{
+        type:String,
+        enum:['processing', 'delivered'],
+        default:'processing'
+    },
+    totalPrice: {
+        type: Number, 
+        required: true
+    }
 }, {timestamps: true})
 
 module.exports = mongoose.model('Order', orderModel)

@@ -3,7 +3,6 @@ const userModel = require('../models/userModel')
 const productModel = require('../models/prductsModel')
 const CustomError = require('../utility/CustomError')
 const util = require('../utility/utilize')
-const { exist } = require('joi')
 
 
 class UserServices{
