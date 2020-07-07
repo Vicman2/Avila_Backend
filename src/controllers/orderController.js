@@ -14,7 +14,7 @@ class OrderController{
         res.status(200).json(response(true, "Order removed successfully", data))
     }
     async getOrders(req, res){
-        const userId = req.params.userID
+        const userId = req.user.token.id;
         const data = await getMany(userId)
         res.status(200).json(response(true, "Orders fetched successfully", data))
     }
@@ -22,7 +22,7 @@ class OrderController{
         const userId = req.user.token.id;
         const orderId = req.params.id;
         const data = await get(userId, orderId);
-        res.status(200).json(response(true, "Orders editted successfully", data))
+        res.status(200).json(response(true, "Order fetched successfully", data))
     }
     async editOrder(req, res){
         const userId = req.user.token.id;

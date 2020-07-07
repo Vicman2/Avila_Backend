@@ -1,12 +1,14 @@
 const orderModel = require('../models/orderModel')
 const userModel = require('../models/userModel');
 const CustomError = require('../utility/CustomError');
+const {emptyCart} = require('../services/userServices')
 
 class OrderServices{
     async make(userId){
         const user = await userModel.findById(userId).populate('cart.product');
         const userWithoutPop = await userModel.findById(userId);
-        if(!user) throw new CustomError("User do not exist", 401)   
+        if(!user) throw new CustomError("User do not exist", 401)
+        if(user.cart.length === 0) throw new CustomError("Cart is empty", 400)
         const userOrder = userWithoutPop.cart.map(prod => {
             return {
                 product : prod.product, 
@@ -21,21 +23,22 @@ class OrderServices{
             totalPrice: totalPrice
         })
         const newOrder = await order.save();
+        emptyCart(userId)
         return newOrder
     }
     async remove(userId, orderId){
-        const order = await orderModel.findOne({user: userId, _id: orderId}).populate('cart.product');
+        const order = await orderModel.findOne({user: userId, _id: orderId}).populate('orders.product');
         if(!order) throw new CustomError("Such order do not exist for this user", 401);
         const deletedOrder = await orderModel.findByIdAndDelete(orderId)
         return deletedOrder;
     }
     async getMany(userId){
-        const orders = await orderModel.find({user: userId}).populate('cart.products');
+        const orders = await orderModel.find({user: userId}).populate('orders.products');
         if(orders.length === 0) throw new CustomError("No order from the user yet", 401)
         return orders;
     }
     async get(userId, orderId){
-        const order = await orderModel.findOne({user: userId, _id: orderId}).populate('cart.products')
+        const order = await orderModel.findOne({user: userId, _id: orderId}).populate('orders.product')
         if(!order) throw new CustomError("No such order exist", 401);
         return order;
     }
@@ -43,7 +46,7 @@ class OrderServices{
         const order = await orderModel.findOne({user: userId, _id: orderId})
         if(!order) throw new CustomError("No such order exist", 401);
         order.status = "delivered"
-        const saved = order.save()
+        const saved = order.save();
         return saved
     }
 }
