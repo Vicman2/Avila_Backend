@@ -15,6 +15,14 @@ exports.validateSignUp = async(req, res, next) => {
     if(result.error)   throw new CustomError(result.error.message, 401);
     next();
 }
+exports.validateEmail = async (req, res, next)=>{
+    const Schema = {
+        email:joi.string().email().required(),
+    }
+    const result = joi.validate(req.body, Schema)
+    if(result.error)   throw new CustomError(result.error.message, 401);
+    next();
+}
 
 
 exports.validateLogin  = async(req, res, next)=>{

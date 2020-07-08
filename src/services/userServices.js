@@ -1,8 +1,10 @@
 const bcrypt = require('bcryptjs')
 const userModel = require('../models/userModel')
 const productModel = require('../models/prductsModel')
+const emailSub = require('../models/emailSubModel')
 const CustomError = require('../utility/CustomError')
 const util = require('../utility/utilize')
+const emailSubModel = require('../models/emailSubModel')
 
 
 class UserServices{
@@ -150,6 +152,31 @@ class UserServices{
         const updatedUser = await user.save();
         const {password, ...dataToSend} = updatedUser._doc
         return dataToSend;
+    }
+
+    async emailSubscription(email){
+        const existingEmail = await emailSubModel.findOne({email})
+        if(existingEmail)  throw new CustomError("Subscriber already exists", 401)
+        const newSubscriber = new emailSubModel({email})
+        const savedSubscriber = await newSubscriber.save();
+        return savedSubscriber
+    }
+
+    async getAllSubscribers(pageNumber, numberOfSubs){
+
+        const numberToSkip = (pageNumber-1) * numberOfSubs
+        const wanted = await emailSubModel
+                            .find()
+                            .skip(numberToSkip)
+                            .limit(numberOfSubs)
+                            .sort([["createdAt", -1]])
+        let numberOfAll = await emailSubModel.count()
+        const dataToSend = {
+            requestedUsers:wanted, 
+            totalSubs: numberOfAll? numberOfAll : null
+        }
+        if(!numberOfAll|| numberOfAll == 0) throw new CustomError("No subscribers in the platform", 400)
+        return dataToSend
     }
 }
 

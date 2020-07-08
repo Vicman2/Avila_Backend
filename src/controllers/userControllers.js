@@ -1,4 +1,4 @@
-const {addUser, login, getMany, editUser, deleteUser, addToCart, changeProdQuant, emptyCart, deleteProdFromCart} = require('../services/userServices')
+const {addUser, login, getMany, editUser, deleteUser, addToCart, changeProdQuant, emptyCart, deleteProdFromCart, emailSubscription, getAllSubscribers} = require('../services/userServices')
 const response = require('../utility/response')
 
 
@@ -65,6 +65,17 @@ class UserController{
         const userId = req.user.token.id
         const data = await deleteProdFromCart(prodId, userId)
         res.status(200).json(response(true, "Product removed from cart", data));
+    }
+
+    async emailSub(req, res){
+        const email = req.body.email
+        const data = await emailSubscription(email);
+        res.status(201).json(response(true, "Subscriber added successfully", data));
+    }
+    async getSubscribers(req, res){
+        const {pageNo, noOfUsers} = req.query
+        const data = await getAllSubscribers(parseInt(pageNo), parseInt(noOfUsers))
+        res.status(200).json(response(true, "Subscribers fetched successfully", data));
     }
 }
 
