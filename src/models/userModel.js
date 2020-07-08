@@ -31,6 +31,11 @@ const UserModel = new Schema({
         required: false,
         default: ""
     },
+    sex: {
+        type: String,
+        enum: ["male", "admin"],
+        required: true,
+    },
     cart: [
         {
             product:  {

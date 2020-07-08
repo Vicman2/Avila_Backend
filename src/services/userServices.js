@@ -20,7 +20,9 @@ class UserServices{
             name:saved.name,
             email: saved.email,
             phone: saved.phone,
-            role: saved.role
+            role: saved.role,
+            address: saved.address,
+            sex: saved.sex
         }
         return dataToSend
     }
@@ -37,7 +39,9 @@ class UserServices{
             email: existing.email, 
             phone: existing.phone,
             role: existing.role,
-            cart: existing.cart
+            cart: existing.cart,
+            address: existing.address,
+            sex: existing.sex
         }
         return dataToSend
     }

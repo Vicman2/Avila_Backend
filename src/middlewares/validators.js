@@ -7,7 +7,9 @@ exports.validateSignUp = async(req, res, next) => {
         name: joi.string().min(3).required(),
         email:joi.string().email().required(),
         phone: joi.string().min(10).required(),
-        password:joi.string().required()
+        password:joi.string().required(),
+        address: joi.string().required(), 
+        sex: joi.string().required()
     }
     const result = joi.validate(req.body, Schema)
     if(result.error)   throw new CustomError(result.error.message, 401);
