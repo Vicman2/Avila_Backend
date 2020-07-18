@@ -1,11 +1,15 @@
 const {add, getOne, getMany, deleteProd,edit} = require('../services/productServices')
-const response = require("../utility/response")
+const response = require("../utility/response");
+const uploadToCloudinary = require('../utility/cloudinaryConfig');
+const { deleteImage } = require('../utility/utilize');
 
 
 class ProductController{
     async addProduct(req, res){
         const data = req.body;
-        data.prodImageSrc = req.file.filename;
+        const image = await uploadToCloudinary(req.file.filename, req.file.path);
+        deleteImage(req.file.path)
+        data.prodImageSrc = image.secure_url;
         const result = await add(data)
         res.status(201).json(response(true, "Products created successfully", result))
     }

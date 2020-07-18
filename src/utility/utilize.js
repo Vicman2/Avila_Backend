@@ -17,7 +17,8 @@ exports.decodeToken = async(token) => {
     }
 }
 
-exports.deleteImage = async(imageUrl) => {
-    filePath = path.join(__dirname,"../../public/products", imageUrl)
-    fs.unlink(filePath, err => console.log(err))
+exports.deleteImage = async(filePath) => {
+    fs.unlink(filePath, err => {
+        if(err)  console.log(err)
+    })
 }
