@@ -1,7 +1,6 @@
-const cloudinary = require('cloudinary');
+const cloudinary = require('cloudinary').v2;
 const config = require('../config/constants');
 const { cloudinaryApiKey } = require('../config/constants');
-const CustomError = require('./CustomError');
 
 const uploadToCloudinary = async(fileName, path)=>{
     cloudinary.config({
@@ -9,7 +8,7 @@ const uploadToCloudinary = async(fileName, path)=>{
         api_key:cloudinaryApiKey ,
         api_secret: config.cloudinaryApiSecret,
     })
-    const image =  await cloudinary.uploader.upload(path, {public_id: fileName})
+    const image =  await cloudinary.uploader.upload(path, {public_id: fileName, folder: 'products'})
     return image
 }
 
