@@ -31,7 +31,7 @@ class Product{
             requestedProduct:productsToReturn, 
             totalProducts: totalProductsNumber? totalProductsNumber : null
         }
-        if(!totalProductsNumber || totalProductsNumber === 0) throw new CustomError("No user in the platform", 400)
+        if(!totalProductsNumber || totalProductsNumber === 0) throw new CustomError("No product in the platform", 400)
         return dataToSend
     }
     async deleteProd(id){
