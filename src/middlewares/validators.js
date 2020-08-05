@@ -81,6 +81,7 @@ exports.validProduct =(req, res, next)=> {
     let valid = joi.validate(req.body, schema)
     if(valid.error) throw new CustomError(valid.error.message, 401)
     if(!req.file)  throw new CustomError("No image was uploaded", 401) 
+    console.log("I am a valid product")
     next();
 }
 exports.validProductEdit =(req, res, next)=> {

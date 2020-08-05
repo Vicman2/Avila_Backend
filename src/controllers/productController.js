@@ -11,6 +11,7 @@ class ProductController{
         deleteImage(req.file.path)
         data.prodImageSrc = image.secure_url;
         const result = await add(data)
+        console.log("I am good to send response")
         res.status(201).json(response(true, "Products created successfully", result))
     }
     async getProduct(req, res){
