@@ -9,13 +9,11 @@ exports.authentication =async(req, res, next)=>{
     const decodedToken = await util.decodeToken(token)
     if(!decodedToken.success) return res.status(403).json(token)
     req.user = decodedToken
-    console.log("Authenticate");
     next()
 }
 
 exports.authorize = async (req, res, next)=> {
     const role = req.user.token.role;
     if(role !== "admin") return res.status(403).json({success: false, message: "You are not an admin"})
-    console.log("Authorize");
     next()
 }
