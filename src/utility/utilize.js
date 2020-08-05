@@ -19,6 +19,6 @@ exports.decodeToken = async(token) => {
 
 exports.deleteImage = async(filePath) => {
     fs.unlink(filePath, err => {
-        if(err)  console.log(err)
+        if(err)  console.log(err, "This error is on deletion")
     })
 }
