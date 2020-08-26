@@ -7,7 +7,7 @@ const {validateSignUp, validateLogin, validateGetUsers, validateId, validateEdit
 router.post('/create',validateSignUp, addUser);
 router.get('/login', validateLogin, login)
 router.get('/many',authentication, authorize, validateGetUsers, getMany)
-router.get('/getUser/:id', authentication, getUser)
+router.get('/getUser', authentication, getUser)
 router.delete('/delete/:id', authentication, authorize, validateId, deleteUser)
 router.put('/edit/:id',authentication, validateId, validateEdittedUser, editUser)
 
