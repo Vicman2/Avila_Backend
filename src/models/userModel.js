@@ -33,7 +33,7 @@ const UserModel = new Schema({
     },
     sex: {
         type: String,
-        enum: ["male", "admin"],
+        enum: ["male", "female"],
         required: true,
     },
     cart: [
