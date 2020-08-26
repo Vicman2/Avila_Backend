@@ -32,5 +32,3 @@ server.listen(port, () => {
 server.on('error', error => {
     console.log(`Error occured on the server ${error}`)
 })
-
-module.exports = app

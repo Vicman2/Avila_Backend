@@ -63,6 +63,11 @@ class UserServices{
         if(!numberOfAll|| numberOfAll == 0) throw new CustomError("No user in the platform", 400)
         return dataToSend
     }
+    async getOne(id){
+        const deUser = await userModel.findById(id).select("-password")
+        if(!deUser) throw new CustomError("User do not exist", 400)
+        return deUser;
+    }
     async deleteUser(userId){
         const userToBeDeleted = await userModel.findById(userId)
         if(!userToBeDeleted)  throw new CustomError("User do not exist", 400)

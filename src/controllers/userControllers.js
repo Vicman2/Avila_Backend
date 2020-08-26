@@ -1,4 +1,4 @@
-const {addUser, login, getMany, editUser, deleteUser, addToCart, changeProdQuant, emptyCart, deleteProdFromCart, emailSubscription, getAllSubscribers} = require('../services/userServices')
+const {addUser, login, getMany, editUser, deleteUser, addToCart, changeProdQuant, emptyCart, deleteProdFromCart, emailSubscription, getAllSubscribers, getOne} = require('../services/userServices')
 const response = require('../utility/response')
 
 
@@ -11,6 +11,11 @@ class UserController{
     async login(req, res){
         const {email, password} = req.body
         const data = await login(email, password);
+        res.status(200).json(response(true, "User logged in successfully", data))
+    }
+    async getUser(req, res){
+        const id= req.user.token.id;
+        const data = await getOne(id)
         res.status(200).json(response(true, "User logged in successfully", data))
     }
 
