@@ -1,4 +1,4 @@
-const {addUser, login, getMany, editUser, deleteUser, addToCart, changeProdQuant, emptyCart, deleteProdFromCart, emailSubscription, getAllSubscribers, getOne} = require('../services/userServices')
+const {addUser, login, getMany, editUser, deleteUser, addToCart, changeProdQuant, emptyCart, deleteProdFromCart, emailSubscription, getAllSubscribers, getOne, addFavourite, removeFavourite} = require('../services/userServices')
 const response = require('../utility/response')
 
 
@@ -81,6 +81,21 @@ class UserController{
         const {pageNo, noOfUsers} = req.query
         const data = await getAllSubscribers(parseInt(pageNo), parseInt(noOfUsers))
         res.status(200).json(response(true, "Subscribers fetched successfully", data));
+    }
+    
+
+    // Favourites 
+    async addToFavourite(req, res){
+        const prodId = req.params.id
+        const userId = req.user.token.id
+        const data = await addFavourite(userId, prodId);
+        res.status(200).json(response(true, "Product added to favourite", data));
+    }
+    async removeFromFavourite(req, res){
+        const prodId = req.params.id
+        const userId = req.user.token.id
+        const data = await removeFavourite(userId, prodId)
+        res.status(200).json(response(true, "Product removed from favourite", data));
     }
 }
 

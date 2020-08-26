@@ -183,6 +183,28 @@ class UserServices{
         if(!numberOfAll|| numberOfAll == 0) throw new CustomError("No subscribers in the platform", 400)
         return dataToSend
     }
+    async addFavourite(userId, prodId) {
+        const user = await userModel.findById(userId)
+        if(!user) throw new CustomError("User do not exist", 401);
+        let isInFavourite = user.favourites.find(prod => prod == prodId); 
+        if(isInFavourite) throw new CustomError("Product is in favourite items already", 400);
+        user.favourites.push(prodId)
+        const savedUser = await user.save();
+        return savedUser
+    }
+    async removeFavourite(userId, prodId) {
+        const user = await userModel.findById(userId)
+        if(!user) throw new CustomError("User do not exist", 401);
+        let prodIndex = null
+        let isInFavourite = user.favourites.find((prod, index ) =>{
+            prodIndex  = index
+            return prod == prodId
+        }); 
+        if(!isInFavourite) throw new CustomError("Product is not in favourites", 400);
+        user.favourites.splice(prodIndex, 1)
+        const savedUser = await user.save();
+        return savedUser
+    }
 }
 
 module.exports = new UserServices()
