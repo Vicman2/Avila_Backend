@@ -19,8 +19,8 @@ router.get('/getSubscribers', authentication, authorize,validateGetUsers, getSub
 
 // Favourites
 
-router.put('/addFavourite/:id', authentication, addToFavourite)
-router.put('/removeFavourite/:id', authentication, removeFromFavourite)
+router.put('/addFavourite', authentication, addToFavourite)
+router.put('/removeFavourite', authentication, removeFromFavourite)
 
 
 

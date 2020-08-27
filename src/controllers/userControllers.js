@@ -86,13 +86,13 @@ class UserController{
 
     // Favourites 
     async addToFavourite(req, res){
-        const prodId = req.params.id
+        const prodId = req.body.id
         const userId = req.user.token.id
         const data = await addFavourite(userId, prodId);
         res.status(200).json(response(true, "Product added to favourite", data));
     }
     async removeFromFavourite(req, res){
-        const prodId = req.params.id
+        const prodId = req.body.id
         const userId = req.user.token.id
         const data = await removeFavourite(userId, prodId)
         res.status(200).json(response(true, "Product removed from favourite", data));
