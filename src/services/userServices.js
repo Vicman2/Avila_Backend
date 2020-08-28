@@ -139,7 +139,13 @@ class UserServices{
         const cart = user.cart
         for(let i = 0; i < cart.length; i++){
             if(cart[i].product.toString() == prodId){
-                action === "dec" ?cart[i].quantity-- : cart[i].quantity++
+                if(action ==  "dec" && cart[i].quantity > 1){
+                    cart[i].quantity--
+                }else if(action == "dec" && cart[i].quantity ==1 ){
+                    throw new CustomError("You can no longer decrease the quantity", 400)
+                }else if(action =="inc"){
+                    cart[i].quantity++
+                }
             }
         }
         user.cart = cart
