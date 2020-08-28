@@ -183,6 +183,11 @@ class UserServices{
         if(!numberOfAll|| numberOfAll == 0) throw new CustomError("No subscribers in the platform", 400)
         return dataToSend
     }
+    async getFavourites(userId){
+        const user = await userModel.findById(userId).populate("favourites")
+        if(!user) throw new CustomError("User do not exist", 400);
+        return user.favourites
+    }
     async addFavourite(userId, prodId) {
         const user = await userModel.findById(userId)
         if(!user) throw new CustomError("User do not exist", 401);

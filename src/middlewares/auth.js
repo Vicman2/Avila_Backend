@@ -5,7 +5,6 @@ const CustomError = require('../utility/CustomError')
 
 exports.authentication =async(req, res, next)=>{
     const token = req.headers["x-access-token"];
-    console.log(token)
     if(!token) throw new CustomError("Please, provide us with a token", 401);
     const decodedToken = await util.decodeToken(token)
     if(!decodedToken.success) return res.status(403).json(token)

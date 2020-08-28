@@ -1,4 +1,4 @@
-const {addUser, login, getMany, editUser, deleteUser, addToCart, changeProdQuant, emptyCart, deleteProdFromCart, emailSubscription, getAllSubscribers, getOne, addFavourite, removeFavourite} = require('../services/userServices')
+const {addUser, login, getMany, editUser, deleteUser, addToCart, changeProdQuant, emptyCart, deleteProdFromCart, emailSubscription, getAllSubscribers, getOne, addFavourite, removeFavourite, getFavourites} = require('../services/userServices')
 const response = require('../utility/response')
 
 
@@ -96,6 +96,11 @@ class UserController{
         const userId = req.user.token.id
         const data = await removeFavourite(userId, prodId)
         res.status(200).json(response(true, "Product removed from favourite", data));
+    }
+    async getFavourites(req, res){
+        const userId = req.user.token.id
+        const data = await getFavourites(userId);
+        res.status(200).json(response(true, "Favourites products fetched successfully", data));
     }
 }
 

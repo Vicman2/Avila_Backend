@@ -49,10 +49,10 @@ const UserModel = new Schema({
             }
         }
     ], 
-    favourites: {
-        type: [Schema.Types.ObjectId], 
+    favourites: [{
+        type: Schema.Types.ObjectId, 
         ref: "product"
-    }
+    }]
 }, {timestamps:true})
 
 module.exports = mongoose.model("User", UserModel)

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {addUser, login, getMany, deleteUser, editUser, emailSub, getSubscribers, getUser, addToFavourite, removeFromFavourite}= require('../controllers/userControllers')
+const {addUser, login, getMany, deleteUser, editUser, emailSub, getSubscribers, getUser, addToFavourite, removeFromFavourite, getFavourites}= require('../controllers/userControllers')
 const {authentication, authorize} = require('../middlewares/auth')
 const {validateSignUp, validateLogin, validateGetUsers, validateId, validateEdittedUser, validateEmail} = require('../middlewares/validators');
 
@@ -20,7 +20,8 @@ router.get('/getSubscribers', authentication, authorize,validateGetUsers, getSub
 // Favourites
 
 router.put('/addFavourite/:id', authentication, addToFavourite)
-router.put('/removeFavourite/:id', authentication, removeFromFavourite)
+router.delete('/removeFavourite/:id', authentication, removeFromFavourite)
+router.get('/getProducts', authentication, getFavourites)
 
 
 
