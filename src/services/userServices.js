@@ -97,6 +97,12 @@ class UserServices{
 
 
     //  Cart Services
+
+    async getCart(userId){
+        const user  = await userModel.findById(userId).populate("cart.product");
+        if(!user) throw new CustomError("user do not exist", 400);
+        return user.cart
+    }
     async addToCart(id, prodId){
         const existingBook = await productModel.findById({_id: prodId});
         if(!existingBook) throw new CustomError("Product do not exist", 401);

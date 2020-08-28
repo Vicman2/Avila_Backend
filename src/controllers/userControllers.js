@@ -1,4 +1,4 @@
-const {addUser, login, getMany, editUser, deleteUser, addToCart, changeProdQuant, emptyCart, deleteProdFromCart, emailSubscription, getAllSubscribers, getOne, addFavourite, removeFavourite, getFavourites} = require('../services/userServices')
+const {addUser, login, getMany, editUser, deleteUser, addToCart, changeProdQuant, emptyCart, deleteProdFromCart, emailSubscription, getAllSubscribers, getOne, addFavourite, removeFavourite, getFavourites, getCart} = require('../services/userServices')
 const response = require('../utility/response')
 
 
@@ -40,6 +40,11 @@ class UserController{
 
 
     //  Cart controller
+    async getUserCart(req, res){
+        const userId = req.user.token.id
+        const data = await getCart(userId)
+        res.status(201).json(response(true, "Cart fetched successfully", data));
+    }
 
     async addToCart(req, res){
         const prodId = req.params.id
