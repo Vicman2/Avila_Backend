@@ -57,8 +57,8 @@ exports.validateEdittedUser = async(req, res, next) => {
     const Schema = {
         name: joi.string().min(3).max(30).required(),
         email:joi.string().email().required(),
-        role: joi.string().allow(["user", "admin"]).required(),
         phone: joi.string().min(10).required(),
+        address: joi.string().required(),
         password: joi.optional()
     }
     const result = joi.validate(req.body, Schema)
