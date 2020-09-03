@@ -15,6 +15,10 @@ const orderModel = new Schema({
                 required: true,
                 ref:'product'
             },
+            quantity: {
+                type: Number, 
+                required:true
+            }
         }
     ],
     status:{

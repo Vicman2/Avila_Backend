@@ -22,7 +22,6 @@ app.use('/', (req, res)=> {
 
 // Error Middleware
 errorMiddleware(app)
-
 const port  = config.port
 server.listen(port, () => {
     database()

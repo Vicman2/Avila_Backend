@@ -49,5 +49,11 @@ class OrderServices{
         const saved = order.save();
         return saved
     }
+    async getOrderProds (userId){
+        const order = await orderModel.findOne({user: userId, _id: orderId}).populate('orders.product')
+        if(!order) throw new CustomError("No such order exist", 401);
+        const userOrders = await orderModel.find({user: userId})
+        const prodArray 
+    }
 }
 module.exports = new OrderServices
