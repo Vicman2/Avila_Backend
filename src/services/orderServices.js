@@ -56,7 +56,8 @@ class OrderServices{
         const prodArray = []
         userOrders.forEach(order => {
             order.orders.forEach(oneItem => {
-                if(!prodArray.includes(oneItem.product._id)){
+                let isFound = prodArray.find(prod => prod._id === oneItem.product._id)
+                if(!isFound){
                     prodArray.push(oneItem.product)
                 }
             })
