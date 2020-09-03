@@ -1,4 +1,4 @@
-const {make, remove, getMany, get, edit} = require('../services/orderServices');
+const {make, remove, getMany, get, edit, getOrderProds} = require('../services/orderServices');
 const response = require('../utility/response')
 
 class OrderController{
@@ -29,6 +29,11 @@ class OrderController{
         const orderId = req.params.id;
         const data = await edit(userId, orderId);
         res.status(200).json(response(true, "Order editted  successfully", data))
+    }
+    async getOrderProds(req, res){
+        const userId = req.user.token.id;
+        const data = await getOrderProds(userId)
+        res.status(200).json(response(true, "Ordered Products fetched successfully", data));
     }
 }
 
