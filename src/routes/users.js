@@ -23,6 +23,9 @@ router.put('/addFavourite/:id', authentication, addToFavourite)
 router.delete('/removeFavourite/:id', authentication, removeFromFavourite)
 router.get('/getFavourites', authentication, getFavourites)
 
+// Admin Routes 
+router.post('/addByAdmin', authentication, authentication, validateSignUp, addUser)
+
 
 
 module.exports = router
