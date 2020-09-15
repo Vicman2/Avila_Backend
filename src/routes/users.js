@@ -25,6 +25,7 @@ router.get('/getFavourites', authentication, getFavourites)
 
 // Admin Routes 
 router.post('/addByAdmin', authentication, authentication, validateSignUp, addUser)
+router.put('/editByAdmin/:id', authentication, authentication, validateEdittedUser, editUser)
 
 
 

@@ -89,9 +89,10 @@ class UserServices{
         userToEdit.email = dataToInsert.email;
         userToEdit.role = dataToInsert.role;
         userToEdit.phone = dataToInsert.phone;
-        userToEdit.address = dataToInsert.address
+        userToEdit.address = dataToInsert.address;
+        userToEdit.role = dataToInsert.role ? dataToInsert.role: userToEdit.role;
         const editedUser = await userToEdit.save();
-        const {password, ...dataToSend} = editedUser._doc
+        const {password, ...dataToSend} = editedUser._doc;
         return dataToSend;  
     }
 
