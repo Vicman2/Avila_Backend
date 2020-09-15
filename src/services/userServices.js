@@ -54,7 +54,7 @@ class UserServices{
                             .skip(numberToSkip)
                             .limit(numberOfPersons)
                             .sort([["createdAt", -1]])
-                            .select("_id name email role phone cart address")
+                            .select("_id name email role phone cart address sex")
         let numberOfAll = await userModel.count()
         const dataToSend = {
             requestedUsers:wanted, 
