@@ -4,7 +4,7 @@ const CustomError = require('../utility/CustomError')
 
 exports.validateSignUp = async(req, res, next) => {
     let deRole = req.user?  req.user.token.role : null
-    const Schema = {
+    let Schema = {
         name: joi.string().min(3).required(),
         email:joi.string().email().required(),
         phone: joi.string().min(10).required(),
