@@ -61,12 +61,19 @@ exports.validateId = async(req, res, next)=> {
 }
 
 exports.validateEdittedUser = async(req, res, next) => {
-    const Schema = {
+    let deRole = req.user?  req.user.token.role : null
+    let Schema = {
         name: joi.string().min(3).max(30).required(),
         email:joi.string().email().required(),
         phone: joi.string().min(10).required(),
         address: joi.string().required(),
         password: joi.optional()
+    }
+    if(deRole){
+        Schema = {
+            ...Schema, 
+            role: joi.string().required(),
+        }
     }
     const result = joi.validate(req.body, Schema)
     if(result.error)   throw new CustomError(result.error.message, 401);
