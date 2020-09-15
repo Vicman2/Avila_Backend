@@ -67,6 +67,7 @@ exports.validateEdittedUser = async(req, res, next) => {
         email:joi.string().email().required(),
         phone: joi.string().min(10).required(),
         address: joi.string().required(),
+        sex: joi.string().optional(),
         password: joi.optional()
     }
     if(deRole){
