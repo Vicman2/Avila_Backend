@@ -32,7 +32,13 @@ class ProductController{
         const {id} = req.params
         const data = req.body;
         data.id = id
-        req.file ? data.prodImageSrc = req.file.filename: data.prodImageSrc = req.body.prodImage
+        if(req.file){
+            const image = await uploadToCloudinary(req.file.filename, req.file.path);
+            deleteImage(req.file.path)
+            data.prodImageSrc = image.secure_url
+        }else{
+            data.prodImageSrc = req.body.prodImage
+        }
         const result = await edit(data)
         if(!result.success) return res.status(404).json(result)
         res.status(200).json(result)
