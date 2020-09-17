@@ -42,11 +42,13 @@ class Product{
         return {success: true, message: "Product have been deleted successfully", data: removed}
     }
     async edit(productDetails){
+        console.log(productDetails)
         const existing = await productModel.findOne({_id:productDetails.id})
         if(!existing) return {success: false, message: "The product does not exist"}
-        if(existing.prodImageSrc !== productDetails.prodImageSrc){
+        if(existing.prodImageSrc !== productDetails.prodImage){
             await deleteImage(existing.prodImageSrc)
         }
+        console.log(productDetails.prodImageSrc)
         existing.name =productDetails.name
         existing.prodImageSrc = productDetails.prodImageSrc
         existing.details = productDetails.details

@@ -11,7 +11,6 @@ class ProductController{
         deleteImage(req.file.path)
         data.prodImageSrc = image.secure_url;
         const result = await add(data)
-        console.log("I am good to send response")
         res.status(201).json(response(true, "Products created successfully", result))
     }
     async getProduct(req, res){
@@ -33,7 +32,7 @@ class ProductController{
         const {id} = req.params
         const data = req.body;
         data.id = id
-        req.file ? data.prodImageSrc = req.file.filename: data.machineSource = req.body.prodImageSrc
+        req.file ? data.prodImageSrc = req.file.filename: data.prodImageSrc = req.body.prodImage
         const result = await edit(data)
         if(!result.success) return res.status(404).json(result)
         res.status(200).json(result)
