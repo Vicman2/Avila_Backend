@@ -96,18 +96,18 @@ exports.validProduct =(req, res, next)=> {
     let valid = joi.validate(req.body, schema)
     if(valid.error) throw new CustomError(valid.error.message, 401)
     if(!req.file)  throw new CustomError("No image was uploaded", 401) 
-    console.log("I am a valid product")
     next();
 }
 exports.validProductEdit =(req, res, next)=> {
     let schema = {
         name: joi.string().min(3).required(),
         details: joi.string().min(10).required(),
+        price: joi.number().required(),
         prodImage: joi.string().optional()
     }
     let valid = joi.validate(req.body, schema)
     if (valid.error) throw new CustomError(valid.error.message, 401)
-    if(!req.file & !req.body.prodImage) return res.status(401).send({success: false, message: "No image was uploaded"})
+    if(!req.file && !req.body.prodImage) return res.status(401).send({success: false, message: "No image was uploaded"})
     next();
 }
 
