@@ -51,7 +51,7 @@ class OrderServices{
     }
     async getOrderProds (userId){
         const order = await orderModel.findOne({user: userId})
-        if(!order) throw new CustomError("No such order exist", 401);
+        if(!order) return []
         const userOrders = await orderModel.find({user: userId}).populate("orders.product")
         const prodArray = []
         userOrders.forEach(order => {
